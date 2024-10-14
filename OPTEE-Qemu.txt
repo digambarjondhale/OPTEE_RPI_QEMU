@@ -1,0 +1,28 @@
+For a Qemu
+
+Checking Ubuntu machine version:
+Use the command "uname -a" to verify that the Ubuntu machine is running version 20.04 or above.
+
+1)Prerequisites 
+use command:- for these website  :-  https://optee.readthedocs.io/en/latest/building/prerequisites.html this website command use
+example for Ubuntu version 20.04
+sudo apt-get install -y     adb     acpica-tools     autoconf     automake     bc     bison     build-essential     ccache     cpio     cscope     curl     device-tree-compiler     e2tools     expect     fastboot     flex     ftp-upload     gdisk     git     libattr1-dev     libcap-ng-dev     libfdt-dev     libftdi-dev     libglib2.0-dev     libgmp3-dev     libhidapi-dev     libmpc-dev     libncurses5-dev     libpixman-1-dev     libslirp-dev     libssl-dev     libtool     libusb-1.0-0-dev     make     mtools     netcat     ninja-build     python3-cryptography     python3-pip     python3-pyelftools     python3-serial     python-is-python3     rsync     swig     unzip     uuid-dev     wget     xdg-utils     xterm     xz-utils     zlib1g-dev
+
+3) sudo apt update
+4) sudo apt install repo
+5) sudo apt install minicom picocom
+6) mkdir optee_qemu
+7) cd optee_qemu
+8) $ repo init -u https://github.com/OP-TEE/manifest.git -m default.xml
+9) repo sync --no-clone-bundle
+10) cd build
+11) make toolchains
+12) make run
+After opening two windows for the normal world and the secure world, 
+the following message will be displayed on the screen: "Qemu press c."
+example:- qemu c after enter butten press
+
+on normal world  screen
+Welcome to Buildroot, type root or test to login
+buildroot login: root
+# optee_example_hello_world

@@ -1,0 +1,46 @@
+For a Raspberrypi board:-
+
+Checking Ubuntu machine version:
+Use the command "uname -a" to verify that the Ubuntu machine is running version 20.04 or above.
+
+1)Prerequisites 
+use command:- for these website  :-  https://optee.readthedocs.io/en/latest/building/prerequisites.html this website command use
+example for Ubuntu version 20.04
+sudo apt-get install -y     adb     acpica-tools     autoconf     automake     bc     bison     build-essential     ccache     cpio     cscope     curl     device-tree-compiler     e2tools     expect     fastboot     flex     ftp-upload     gdisk     git     libattr1-dev     libcap-ng-dev     libfdt-dev     libftdi-dev     libglib2.0-dev     libgmp3-dev     libhidapi-dev     libmpc-dev     libncurses5-dev     libpixman-1-dev     libslirp-dev     libssl-dev     libtool     libusb-1.0-0-dev     make     mtools     netcat     ninja-build     python3-cryptography     python3-pip     python3-pyelftools     python3-serial     python-is-python3     rsync     swig     unzip     uuid-dev     wget     xdg-utils     xterm     xz-utils     zlib1g-dev
+
+3) sudo apt update
+4) sudo apt install repo
+5) sudo apt install minicom picocom
+6) mkdir optee_rpi
+7) cd optee_rpi
+8) repo init -u https://github.com/OP-TEE/manifest.git -m  rpi3.xml
+9) repo sync --no-clone-bundle
+10) cd build
+11) make toolchains
+12) make -j `nproc`
+
+After creating the rpi3-sdcard.img file using the make command, follow these steps:
+ creating rpi3-sdcard.img in path:- <location optee>/out/rpi3-sdcard.img
+
+13) Format the SD card and connect it to the Linux system. Check if the SD card is connected using the 
+command: "sudo dmesg". Then, list all connected storage devices with the command: ls /dev/sd*.
+
+
+14) sudo dd if=<path to your output folder>/rpi3-sdcard.img of=/dev/sd<your SD card name> bs=1024k conv=fsync status=progress
+ex commend:-
+   sudo dd if=out/rpi3-sdcard.img of=/dev/sdb bs=1024k conv=fsync status=progress
+   
+15) Remove the SD card from your computer and insert it into the Raspberry Pi board. Connect the Raspberry Pi board to your computer via serial communication using a USB TTL converter cable and software like minicom 
+
+16)Use a USB TTL converter cable to establish connections between the USB port on your computer and the GPIO pins (RX, TX, GND) on the Raspberry Pi board. The baud rate for communication with the Raspberry Pi board is typically 115200.
+
+17)sudo picocom -b 115200 /dev/ttyUSB0
+  
+18)
+  16) After the Raspberry Pi boots up and displays a login screen, login as root. Then, execute the following command to run the OP-TEE example application:
+buildroot login: root
+  # optee_example_hello_world
+   after run the command show the output
+   // are you use the eth for rpi board 
+   ifconfig eth0 172.17.0.187 netmask 255.255.254.0
+
